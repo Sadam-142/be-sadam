@@ -21,7 +21,7 @@ app.set("trust proxy", 1);
 // CORS
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production" && process.env.FRONTEND_URL ? process.env.FRONTEND_URL : "*",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
