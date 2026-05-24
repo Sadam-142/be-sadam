@@ -1,7 +1,5 @@
-import multer from "multer";
+import multer, { StorageEngine } from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import { resolve } from "path";
 import dotenv from "dotenv";
 
 // Hapus CLOUDINARY_URL agar SDK tidak salah membaca config default dari environment
@@ -14,14 +12,28 @@ cloudinary.config({
   secure: true
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "ukm-risalah",
-    upload_preset: "risalah_unsigned",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-  } as any, // TypeScript workaround for params
-});
+class CustomCloudinaryStorage implements StorageEngine {
+  _handleFile(req: any, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
+    const stream = cloudinary.uploader.unsigned_upload_stream(
+      "risalah_unsigned",
+      (error, result) => {
+        if (error) return cb(error);
+        cb(null, {
+          path: result?.secure_url,
+          filename: result?.public_id,
+        });
+      },
+      { folder: "ukm-risalah" }
+    );
+    file.stream.pipe(stream);
+  }
+
+  _removeFile(req: any, file: Express.Multer.File, cb: (error: Error | null) => void) {
+    cb(null);
+  }
+}
+
+const storage = new CustomCloudinaryStorage();
 
 const fileFilter = (
   _req: any,
