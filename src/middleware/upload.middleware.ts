@@ -18,6 +18,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "ukm-risalah",
+    upload_preset: "risalah_unsigned",
     allowed_formats: ["jpg", "png", "jpeg", "webp"],
   } as any, // TypeScript workaround for params
 });
