@@ -44,6 +44,24 @@ export function errorMiddleware(
     return;
   }
 
+  // Handle Multer limits (misal: File too large)
+  if (err.name === "MulterError") {
+    res.status(400).json({
+      success: false,
+      message: err.message === "File too large" ? "Ukuran foto terlalu besar (Maksimal 5MB)." : err.message,
+    });
+    return;
+  }
+
+  // Handle format file tidak didukung
+  if (err.message && err.message.includes("Format file tidak didukung")) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+    return;
+  }
+
   // Default 500
   res.status(500).json({
     success: false,
