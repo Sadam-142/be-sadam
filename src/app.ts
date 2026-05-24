@@ -64,6 +64,11 @@ app.get("/health", (_req, res) => {
   });
 });
 
+// Test endpoint to verify deployment version
+app.get("/ping", (_req, res) => {
+  res.json({ version: "custom_storage_v1" });
+});
+
 // API routes
 app.use("/api", routes);
 
