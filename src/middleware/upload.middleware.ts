@@ -8,9 +8,9 @@ import dotenv from "dotenv";
 delete process.env.CLOUDINARY_URL;
 
 cloudinary.config({
-  cloud_name: "didjbcinp",
-  api_key: "851542653881134",
-  api_secret: "h9XwmTaRe952BOF0ECkXUoM1khY",
+  cloud_name: process.env.CLOUDINARY_NAME || "didjbcinp",
+  api_key: process.env.CLOUDINARY_API_KEY || "656287796896628",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "fIVdPGIP_ZD4NOdYaomDNOsnYe8",
   secure: true
 });
 
