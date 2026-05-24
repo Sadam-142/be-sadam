@@ -14,17 +14,17 @@ cloudinary.config({
 
 class CustomCloudinaryStorage implements StorageEngine {
   _handleFile(req: any, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
-    const stream = cloudinary.uploader.unsigned_upload_stream(
-      "risalah_unsigned",
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "ukm-risalah", unsigned: true, upload_preset: "risalah_unsigned" },
       (error, result) => {
         if (error) return cb(error);
         cb(null, {
           path: result?.secure_url,
           filename: result?.public_id,
         });
-      },
-      { folder: "ukm-risalah" }
+      }
     );
+    stream.on('error', (e) => cb(e));
     file.stream.pipe(stream);
   }
 
