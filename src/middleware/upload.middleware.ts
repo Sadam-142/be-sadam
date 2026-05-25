@@ -17,7 +17,12 @@ class CustomCloudinaryStorage implements StorageEngine {
     console.log("Cloudinary Config:", cloudinary.config());
     console.log("Upload Options:", { folder: "ukm-risalah" });
     const stream = cloudinary.uploader.upload_stream(
-      { folder: "ukm-risalah" },
+      { 
+        folder: "ukm-risalah",
+        cloud_name: process.env.CLOUDINARY_NAME || "didjbcinp",
+        api_key: process.env.CLOUDINARY_API_KEY || "656287796896628",
+        api_secret: process.env.CLOUDINARY_API_SECRET || "fIVdPGIP_ZD4NOdYaomDNOsnYe8"
+      },
       (error, result) => {
         if (error) return cb(error);
         cb(null, {
