@@ -20,9 +20,7 @@ export const createPendaftaranSchema = z.object({
   alamat_domisili: z.string().optional(),
   jenis_kelamin: z.enum(["L", "P"]).optional(),
   nama_akun_ig: z.string().optional(),
-  bukti_follow_ig: z.string().optional(),
-  bukti_follow_yt: z.string().optional(),
-  bukti_follow_tiktok: z.string().optional(),
+
   bukti_pembayaran: z.string().optional(),
   tgl_pembayaran: z.string().optional(),
 });

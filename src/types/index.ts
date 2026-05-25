@@ -20,9 +20,7 @@ export interface Pendaftaran {
   nama_akun_ig: string | null;
   tgl_pendaftaran: string;
   status_pendaftaran: string;
-  bukti_follow_ig: string | null;
-  bukti_follow_yt: string | null;
-  bukti_follow_tiktok: string | null;
+
   bukti_pembayaran: string | null;
   tgl_pembayaran: string | null;
   created_at: string;

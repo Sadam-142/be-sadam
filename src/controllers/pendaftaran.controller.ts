@@ -10,15 +10,7 @@ export const pendaftaranController = {
     if (req.files && typeof req.files === "object") {
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
       
-      if (files["bukti_follow_ig"]?.[0]) {
-        req.body.bukti_follow_ig = files["bukti_follow_ig"][0].path;
-      }
-      if (files["bukti_follow_yt"]?.[0]) {
-        req.body.bukti_follow_yt = files["bukti_follow_yt"][0].path;
-      }
-      if (files["bukti_follow_tiktok"]?.[0]) {
-        req.body.bukti_follow_tiktok = files["bukti_follow_tiktok"][0].path;
-      }
+
       if (files["bukti_pembayaran"]?.[0]) {
         req.body.bukti_pembayaran = files["bukti_pembayaran"][0].path;
       }

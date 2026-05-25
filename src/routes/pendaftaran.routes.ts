@@ -10,9 +10,7 @@ const router = Router();
 router.post(
   "/",
   upload.fields([
-    { name: "bukti_follow_ig", maxCount: 1 },
-    { name: "bukti_follow_yt", maxCount: 1 },
-    { name: "bukti_follow_tiktok", maxCount: 1 },
+
     { name: "bukti_pembayaran", maxCount: 1 },
   ]),
   pendaftaranController.create

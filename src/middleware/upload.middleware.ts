@@ -1,4 +1,4 @@
-import multer, { StorageEngine } from "multer";
+import multer, { type StorageEngine } from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 

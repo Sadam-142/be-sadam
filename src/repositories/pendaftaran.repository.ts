@@ -38,9 +38,8 @@ export const pendaftaranRepository = {
       sql: `INSERT INTO pendaftaran 
             (nama_lengkap, nim, angkatan, no_hp, email, fakultas, program_studi, bidang_minat, 
              tempat_lahir, tanggal_lahir, alamat_domisili, jenis_kelamin, nama_akun_ig,
-             status_pendaftaran, bukti_follow_ig, bukti_follow_yt, bukti_follow_tiktok,
-             bukti_pembayaran, tgl_pembayaran, created_at, updated_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             status_pendaftaran, bukti_pembayaran, tgl_pembayaran, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         data.nama_lengkap!,
         data.nim || null,
@@ -56,9 +55,7 @@ export const pendaftaranRepository = {
         data.jenis_kelamin || null,
         data.nama_akun_ig || null,
         data.status_pendaftaran || "pending",
-        data.bukti_follow_ig || null,
-        data.bukti_follow_yt || null,
-        data.bukti_follow_tiktok || null,
+
         data.bukti_pembayaran || null,
         data.tgl_pembayaran || null,
         now(),
