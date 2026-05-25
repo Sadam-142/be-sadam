@@ -66,7 +66,17 @@ app.get("/health", (_req, res) => {
 
 // Test endpoint to verify deployment version
 app.get("/ping", (_req, res) => {
-  res.json({ version: "custom_storage_v4_upload_preset" });
+  res.json({
+    version: "custom_storage_v5_upload_preset_fallback",
+    cloudinary: {
+      hasName: Boolean(process.env.CLOUDINARY_NAME),
+      hasApiKey: Boolean(process.env.CLOUDINARY_API_KEY),
+      hasApiSecret: Boolean(process.env.CLOUDINARY_API_SECRET),
+      hasUploadPreset: Boolean(process.env.CLOUDINARY_UPLOAD_PRESET),
+      hasCloudinaryUrl: Boolean(process.env.CLOUDINARY_URL),
+      uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || "sadam_upload",
+    },
+  });
 });
 
 // API routes
