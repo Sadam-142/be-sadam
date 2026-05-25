@@ -7,6 +7,7 @@ delete process.env.CLOUDINARY_URL;
 const cloudinaryName = process.env.CLOUDINARY_NAME;
 const cloudinaryApiKey = process.env.CLOUDINARY_API_KEY;
 const cloudinaryApiSecret = process.env.CLOUDINARY_API_SECRET;
+const cloudinaryUploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
 
 if (!cloudinaryName || !cloudinaryApiKey || !cloudinaryApiSecret) {
   throw new Error("Cloudinary environment variables are incomplete");
@@ -25,6 +26,7 @@ class CustomCloudinaryStorage implements StorageEngine {
       {
         folder: "ukm-risalah",
         resource_type: "image",
+        ...(cloudinaryUploadPreset ? { upload_preset: cloudinaryUploadPreset } : {}),
       },
       (error, result) => {
         if (error) return cb(error);
