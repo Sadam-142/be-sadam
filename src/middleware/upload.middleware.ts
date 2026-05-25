@@ -15,7 +15,7 @@ cloudinary.config({
 class CustomCloudinaryStorage implements StorageEngine {
   _handleFile(req: any, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
     const stream = cloudinary.uploader.upload_stream(
-      { folder: "ukm-risalah", unsigned: true, upload_preset: "risalah_unsigned" },
+      { folder: "ukm-risalah" },
       (error, result) => {
         if (error) return cb(error);
         cb(null, {
