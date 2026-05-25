@@ -25,7 +25,6 @@ class CustomCloudinaryStorage implements StorageEngine {
       {
         folder: "ukm-risalah",
         resource_type: "image",
-        unsigned: false,
       },
       (error, result) => {
         if (error) return cb(error);

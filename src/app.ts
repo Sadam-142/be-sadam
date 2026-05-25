@@ -66,7 +66,7 @@ app.get("/health", (_req, res) => {
 
 // Test endpoint to verify deployment version
 app.get("/ping", (_req, res) => {
-  res.json({ version: "custom_storage_v2_signed_upload" });
+  res.json({ version: "custom_storage_v3_signed_upload" });
 });
 
 // API routes
