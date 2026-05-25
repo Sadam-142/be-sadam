@@ -1,27 +1,31 @@
 import multer, { type StorageEngine } from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
 
 // Hapus CLOUDINARY_URL agar SDK tidak salah membaca config default dari environment
 delete process.env.CLOUDINARY_URL;
 
+const cloudinaryName = process.env.CLOUDINARY_NAME;
+const cloudinaryApiKey = process.env.CLOUDINARY_API_KEY;
+const cloudinaryApiSecret = process.env.CLOUDINARY_API_SECRET;
+
+if (!cloudinaryName || !cloudinaryApiKey || !cloudinaryApiSecret) {
+  throw new Error("Cloudinary environment variables are incomplete");
+}
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME || "didjbcinp",
-  api_key: process.env.CLOUDINARY_API_KEY || "656287796896628",
-  api_secret: process.env.CLOUDINARY_API_SECRET || "fIVdPGIP_ZD4NOdYaomDNOsnYe8",
-  secure: true
+  cloud_name: cloudinaryName,
+  api_key: cloudinaryApiKey,
+  api_secret: cloudinaryApiSecret,
+  secure: true,
 });
 
 class CustomCloudinaryStorage implements StorageEngine {
-  _handleFile(req: any, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
-    console.log("Cloudinary Config:", cloudinary.config());
-    console.log("Upload Options:", { folder: "ukm-risalah" });
+  _handleFile(_req: any, file: Express.Multer.File, cb: (error?: any, info?: Partial<Express.Multer.File>) => void) {
     const stream = cloudinary.uploader.upload_stream(
-      { 
+      {
         folder: "ukm-risalah",
-        cloud_name: process.env.CLOUDINARY_NAME || "didjbcinp",
-        api_key: process.env.CLOUDINARY_API_KEY || "656287796896628",
-        api_secret: process.env.CLOUDINARY_API_SECRET || "fIVdPGIP_ZD4NOdYaomDNOsnYe8"
+        resource_type: "image",
+        unsigned: false,
       },
       (error, result) => {
         if (error) return cb(error);
@@ -31,11 +35,11 @@ class CustomCloudinaryStorage implements StorageEngine {
         });
       }
     );
-    stream.on('error', (e) => cb(e));
+    stream.on("error", (error) => cb(error));
     file.stream.pipe(stream);
   }
 
-  _removeFile(req: any, file: Express.Multer.File, cb: (error: Error | null) => void) {
+  _removeFile(_req: any, _file: Express.Multer.File, cb: (error: Error | null) => void) {
     cb(null);
   }
 }
